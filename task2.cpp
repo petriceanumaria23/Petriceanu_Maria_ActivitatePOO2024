@@ -11,12 +11,12 @@ public:
     char* email;
     static int maxCredite;
 
-    // Constructor f?r? parametri
+    // Constructor fără parametri
     Student() : programStudiu("Informatica") {
-        varsta = 20;
-        nume = "Popescu Andrei";
-        nrCredite = 30;
-        email = new char[strlen("andrei.popescu@example.com") + 1];
+        this->varsta = 20;
+        this->nume = "Popescu Andrei";
+        this-> nrCredite = 30;
+        this-> email = new char[strlen("andrei.popescu@example.com") + 1];
         strcpy_s(email, strlen("andrei.popescu@example.com") + 1, "andrei.popescu@example.com");
     }
 
@@ -38,7 +38,6 @@ public:
         strcpy_s(this->email, strlen(s.email) + 1, s.email);
     }
 
-    // Destructor
     ~Student() {
         delete[] email;
     }
@@ -63,7 +62,7 @@ public:
     char* email;
     static double salariuMaxim;
 
-    // Constructor f?r? parametri
+    // Constructor fără parametri
     Profesor() : departament("Matematica") {
         nume = "Ionescu Maria";
         varsta = 45;
@@ -81,7 +80,6 @@ public:
         strcpy_s(this->email, email.length() + 1, email.c_str());
     }
 
-    // Constructor de copiere
     Profesor(const Profesor& p) : departament(p.departament) {
         this->nume = p.nume;
         this->varsta = p.varsta;
@@ -90,7 +88,7 @@ public:
         strcpy_s(this->email, strlen(p.email) + 1, p.email);
     }
 
-    // Destructor
+    
     ~Profesor() {
         delete[] email;
     }
@@ -114,7 +112,7 @@ public:
     char* profesorTitular;
     static int durataMaximaCurs;
 
-    // Constructor f?r? parametri
+    
     Curs() : nivel("Licenta") {
         nume = "Programare C++";
         nrOre = 30;
@@ -122,15 +120,14 @@ public:
         strcpy_s(profesorTitular, strlen("Popescu Ion") + 1, "Popescu Ion");
     }
 
-    // Constructor cu parametri
+    
     Curs(string nume, int nrOre, string nivel, string profesorTitular) : nivel(nivel) {
         this->nume = nume;
         this->nrOre = nrOre;
         this->profesorTitular = new char[profesorTitular.length() + 1];
-        strcpy_s(this->profesorTitular, profesorTitular.length() + 1, profesorTitular.c_str());
+        strcpy_s(this->profesorTitular, profesorTitular.length() + 1, c.profesorTitular);
     }
 
-    // Constructor de copiere
     Curs(const Curs& c) : nivel(c.nivel) {
         this->nume = c.nume;
         this->nrOre = c.nrOre;
