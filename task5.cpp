@@ -3,10 +3,6 @@
 #include <cstring>
 using namespace std;
 
-class Student;
-class Profesor;
-class Curs;
-
 class Student {
 public:
     int varsta;
