@@ -35,13 +35,8 @@ public:
         this->varsta = s.varsta;
         this->nume = s.nume;
         this->nrCredite = s.nrCredite;
-        if (s.email) {
             this->email = new char[strlen(s.email) + 1];
             strcpy_s(this->email, strlen(s.email) + 1, s.email);
-        }
-        else {
-            this->email = nullptr;
-        }
     }
 
     ~Student() {
@@ -94,13 +89,9 @@ public:
         this->nume = p.nume;
         this->varsta = p.varsta;
         this->salariu = p.salariu;
-        if (p.email) {
             this->email = new char[strlen(p.email) + 1];
             strcpy_s(this->email, strlen(p.email) + 1, p.email);
-        }
-        else {
-            this->email = nullptr;
-        }
+    
     }
 
     ~Profesor() {
@@ -149,13 +140,8 @@ public:
     Curs(const Curs& c) : nivel(c.nivel) {
         this->nume = c.nume;
         this->nrOre = c.nrOre;
-        if (c.profesorTitular) {
             this->profesorTitular = new char[strlen(c.profesorTitular) + 1];
-            strcpy_s(this->profesorTitular, strlen(c.profesorTitular) + 1, c.profesorTitular);
-        }
-        else {
-            this->profesorTitular = nullptr;
-        }
+            strcpy_s(this->profesorTitular, strlen(c.profesorTitular) + 1, c.profesorTitular)
     }
 
     ~Curs() {
