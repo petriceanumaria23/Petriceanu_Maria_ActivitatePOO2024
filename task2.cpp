@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 using namespace std;
 
 class Student {
@@ -15,18 +16,18 @@ public:
     Student() : programStudiu("Informatica") {
         this->varsta = 20;
         this->nume = "Popescu Andrei";
-        this-> nrCredite = 30;
-        this-> email = new char[strlen("andrei.popescu@example.com") + 1];
-        strcpy_s(email, strlen("andrei.popescu@example.com") + 1, "andrei.popescu@example.com");
+        this->nrCredite = 30;
+        this->email = nullptr;
     }
 
     // Constructor cu parametri
-    Student(string nume, int varsta, int nrCredite, string email, string programStudiu) : programStudiu(programStudiu) {
+    Student(string nume, int varsta, int nrCredite, string program)
+        : programStudiu(program) {
         this->varsta = varsta;
         this->nume = nume;
         this->nrCredite = nrCredite;
-        this->email = new char[email.length() + 1];
-        strcpy_s(this->email, email.length() + 1, email.c_str());
+        this->email = new char[strlen("popescu_andrei@yahoo.com") + 1];
+        strcpy_s(this->email, strlen("popescu_andrei@yahoo.com") + 1, "popescu_andrei@yahoo.com");
     }
 
     // Constructor de copiere
@@ -34,8 +35,13 @@ public:
         this->varsta = s.varsta;
         this->nume = s.nume;
         this->nrCredite = s.nrCredite;
-        this->email = new char[strlen(s.email) + 1];
-        strcpy_s(this->email, strlen(s.email) + 1, s.email);
+        if (s.email) {
+            this->email = new char[strlen(s.email) + 1];
+            strcpy_s(this->email, strlen(s.email) + 1, s.email);
+        }
+        else {
+            this->email = nullptr;
+        }
     }
 
     ~Student() {
@@ -47,7 +53,10 @@ public:
     }
 
     void afisare() {
-        cout << "Nume: " << nume << ", Varsta: " << varsta << ", Credite: " << nrCredite << ", Program studiu: " << programStudiu << ", Email: " << email << endl;
+        cout << "Nume: " << nume << ", Varsta: " << varsta
+            << ", Credite: " << nrCredite
+            << ", Program studiu: " << programStudiu
+            << ", Email: " << (email ? email : "N/A") << endl;
     }
 };
 
@@ -66,29 +75,34 @@ public:
     Profesor() : departament("Matematica") {
         nume = "Ionescu Maria";
         varsta = 45;
-        salariu = 4000.0;
-        email = new char[strlen("maria.ionescu@example.com") + 1];
-        strcpy_s(email, strlen("maria.ionescu@example.com") + 1, "maria.ionescu@example.com");
+        salariu = 4000;
+        email = nullptr;
     }
 
     // Constructor cu parametri
-    Profesor(string nume, int varsta, double salariu, string email, string departament) : departament(departament) {
+    Profesor(string nume, int varsta, double salariu, string departament)
+        : departament(departament) {
         this->nume = nume;
         this->varsta = varsta;
         this->salariu = salariu;
-        this->email = new char[email.length() + 1];
-        strcpy_s(this->email, email.length() + 1, email.c_str());
+        this->email = new char[strlen("maria.ionescu@example.com") + 1];
+        strcpy_s(this->email, strlen("maria.ionescu@example.com") + 1, "maria.ionescu@example.com");
     }
 
+    // Constructor de copiere
     Profesor(const Profesor& p) : departament(p.departament) {
         this->nume = p.nume;
         this->varsta = p.varsta;
         this->salariu = p.salariu;
-        this->email = new char[strlen(p.email) + 1];
-        strcpy_s(this->email, strlen(p.email) + 1, p.email);
+        if (p.email) {
+            this->email = new char[strlen(p.email) + 1];
+            strcpy_s(this->email, strlen(p.email) + 1, p.email);
+        }
+        else {
+            this->email = nullptr;
+        }
     }
 
-    
     ~Profesor() {
         delete[] email;
     }
@@ -98,7 +112,10 @@ public:
     }
 
     void afisare() {
-        cout << "Nume: " << nume << ", Varsta: " << varsta << ", Salariu: " << salariu << ", Departament: " << departament << ", Email: " << email << endl;
+        cout << "Nume: " << nume << ", Varsta: " << varsta
+            << ", Salariu: " << salariu
+            << ", Departament: " << departament
+            << ", Email: " << (email ? email : "N/A") << endl;
     }
 };
 
@@ -112,30 +129,35 @@ public:
     char* profesorTitular;
     static int durataMaximaCurs;
 
-    
+    // Constructor fără parametri
     Curs() : nivel("Licenta") {
-        nume = "Programare C++";
-        nrOre = 30;
-        profesorTitular = new char[strlen("Popescu Ion") + 1];
-        strcpy_s(profesorTitular, strlen("Popescu Ion") + 1, "Popescu Ion");
+        this->nume = "Programare C++";
+        this->nrOre = 30;
+        this->profesorTitular = nullptr;
     }
 
-    
-    Curs(string nume, int nrOre, string nivel, string profesorTitular) : nivel(nivel) {
+    // Constructor cu parametri
+    Curs(string nume, int nrOre, string nivel)
+        : nivel(nivel) {
         this->nume = nume;
         this->nrOre = nrOre;
-        this->profesorTitular = new char[profesorTitular.length() + 1];
-        strcpy_s(this->profesorTitular, profesorTitular.length() + 1, c.profesorTitular);
+        this->profesorTitular = new char[strlen("Popescu Ion") + 1];
+        strcpy_s(this->profesorTitular, strlen("Popescu Ion") + 1, "Popescu Ion");
     }
 
+    // Constructor de copiere
     Curs(const Curs& c) : nivel(c.nivel) {
         this->nume = c.nume;
         this->nrOre = c.nrOre;
-        this->profesorTitular = new char[strlen(c.profesorTitular) + 1];
-        strcpy_s(this->profesorTitular, strlen(c.profesorTitular) + 1, c.profesorTitular);
+        if (c.profesorTitular) {
+            this->profesorTitular = new char[strlen(c.profesorTitular) + 1];
+            strcpy_s(this->profesorTitular, strlen(c.profesorTitular) + 1, c.profesorTitular);
+        }
+        else {
+            this->profesorTitular = nullptr;
+        }
     }
 
-    // Destructor
     ~Curs() {
         delete[] profesorTitular;
     }
@@ -145,7 +167,9 @@ public:
     }
 
     void afisare() {
-        cout << "Nume curs: " << nume << ", Nr. ore: " << nrOre << ", Nivel: " << nivel << ", Profesor titular: " << profesorTitular << endl;
+        cout << "Nume curs: " << nume << ", Nr. ore: " << nrOre
+            << ", Nivel: " << nivel
+            << ", Profesor titular: " << (profesorTitular ? profesorTitular : "N/A") << endl;
     }
 };
 
@@ -161,11 +185,11 @@ int main() {
     c1.afisare();
 
     cout << "\nTestare clase cu constructori cu parametri:" << endl;
-    Student s2("Maria Popescu", 22, 40, "maria.popescu@example.com", "Informatica Aplicata");
+    Student s2("Maria Popescu", 22, 40, "Informatica Aplicata");
     s2.afisare();
-    Profesor p2("Dumitru Vasile", 50, 7000.0, "dumitru.vasile@example.com", "Fizica");
+    Profesor p2("Dumitru Vasile", 50, 7000.0, "Fizica");
     p2.afisare();
-    Curs c2("Algoritmi", 45, "Master", "Dr. Popescu");
+    Curs c2("Algoritmi", 40, "Licenta");
     c2.afisare();
 
     cout << "\nTestare clase cu constructori de copiere:" << endl;
